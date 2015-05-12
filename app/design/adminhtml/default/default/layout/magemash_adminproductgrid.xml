@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminproductgrid_adminhtml_product_index>
+        <reference name="content">
+            <block type="adminproductgrid/adminhtml_catalog_product_grid" name="productAdmin" />
+        </reference>
+    </adminproductgrid_adminhtml_product_index>
+</layout>

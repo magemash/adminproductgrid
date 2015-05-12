@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <sales>
+            <children>
+                <magemash_adminproductgrid_index translate="title" module="adminproductgrid">
+                    <title>All Products</title>
+                    <sort_order>11</sort_order>
+                    <action>adminproductgrid/adminhtml_product/</action>
+                </magemash_adminproductgrid_index>
+                <magemash_adminproductgrid_setup translate="title" module="adminproductgrid">
+                    <title>Product Grid Setup</title>
+                    <sort_order>11</sort_order>
+                    <action>adminproductgrid/adminhtml_productgridsetup/</action>
+                </magemash_adminproductgrid_setup>
+            </children>
+        </sales>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <magemash_adminproductgrid_settings translate="title" module="adminproductgrid">
+                                        <title>MageMash_AdminProductGrid</title>
+                                        <sort_order>60</sort_order>
+                                    </magemash_adminproductgrid_settings>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+
+                    <sales>
+                        <children>
+                            <magemash_adminproductgrid_index translate="title" module="adminproductgrid">
+                                <title>Admin Product Grid</title>
+                                <sort_order>50</sort_order>
+                            </magemash_adminproductgrid_index>
+                            <magemash_adminproductgrid_setup translate="title" module="adminproductgrid">
+                                <title>Admin Product Setup</title>
+                                <sort_order>50</sort_order>
+                            </magemash_adminproductgrid_setup>
+                        </children>
+                    </sales>
+
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
