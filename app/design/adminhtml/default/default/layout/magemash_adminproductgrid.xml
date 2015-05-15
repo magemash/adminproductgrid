@@ -7,7 +7,7 @@
     </adminproductgrid_adminhtml_product_index>
     <adminproductgrid_adminhtml_grid_index>
         <reference name="content">
-            <block type="adminproductgrid/adminhtml_grid" name="gridAdmin" />
+            <block type="adminproductgrid/adminhtml_grid_grid" name="gridAdmin" />
         </reference>
     </adminproductgrid_adminhtml_grid_index>
 </layout>

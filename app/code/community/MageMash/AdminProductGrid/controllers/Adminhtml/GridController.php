@@ -24,7 +24,7 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
 
 //			$id = $this->getRequest()->getParam("id");
         $grid = Mage::getModel("adminproductgrid/grid")->getCollection();
-        die(var_dump($grid));
+//        die(var_dump($grid));
 
         $model = Mage::getResourceModel("adminproductgrid/field_collection")->load();
 

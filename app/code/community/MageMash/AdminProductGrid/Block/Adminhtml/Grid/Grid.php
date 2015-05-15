@@ -1,6 +1,6 @@
 <?php
 
-class MageMash_AdminProductGrid_Block_Adminhtml_Productgridsetup_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
     public function __construct()
@@ -20,7 +20,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Productgridsetup_Grid extends Ma
     }
     protected function _prepareColumns()
     {
-        $helper = $this->getHelper();
+        $helper = $this->getGridHelper();
 
         $this->addColumn('entity_id', array(
             'header' => $helper->__('ID'),
@@ -95,7 +95,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Productgridsetup_Grid extends Ma
 //        return $this;
 //    }
 
-    public function getHelper()
+    public function getGridHelper()
     {
         return Mage::helper('adminproductgrid');
     }
