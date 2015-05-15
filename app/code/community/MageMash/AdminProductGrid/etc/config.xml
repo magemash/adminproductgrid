@@ -34,9 +34,12 @@
             <adminproductgrid_resource>
                 <class>MageMash_AdminProductGrid_Model_Resource</class>
                 <entities>
-                    <fields>
-                        <table>magemash_adminproductgrid_fields</table>
-                    </fields>
+                    <field>
+                        <table>magemash_adminproductgrid_field</table>
+                    </field>
+                    <grid>
+                        <table>magemash_adminproductgrid_grid</table>
+                    </grid>
                 </entities>
             </adminproductgrid_resource>
         </models>

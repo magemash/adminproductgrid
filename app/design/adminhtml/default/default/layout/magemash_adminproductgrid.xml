@@ -5,4 +5,9 @@
             <block type="adminproductgrid/adminhtml_catalog_product_grid" name="productAdmin" />
         </reference>
     </adminproductgrid_adminhtml_product_index>
+    <adminproductgrid_adminhtml_grid_index>
+        <reference name="content">
+            <block type="adminproductgrid/adminhtml_grid" name="gridAdmin" />
+        </reference>
+    </adminproductgrid_adminhtml_grid_index>
 </layout>

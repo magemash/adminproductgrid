@@ -11,8 +11,13 @@
                 <magemash_adminproductgrid_setup translate="title" module="adminproductgrid">
                     <title>Product Grid Setup</title>
                     <sort_order>11</sort_order>
-                    <action>adminproductgrid/adminhtml_productgridsetup/</action>
+                    <action>adminproductgrid/adminhtml_grid/</action>
                 </magemash_adminproductgrid_setup>
+                <magemash_adminproductgrid_setupedit translate="title" module="adminproductgrid">
+                    <title>Product Grid Edit</title>
+                    <sort_order>11</sort_order>
+                    <action>adminproductgrid/adminhtml_grid/edit/</action>
+                </magemash_adminproductgrid_setupedit>
             </children>
         </sales>
     </menu>
