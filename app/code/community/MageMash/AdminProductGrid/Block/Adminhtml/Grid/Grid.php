@@ -2,6 +2,7 @@
 
 class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
+    protected $helper;
 
     public function __construct()
     {
@@ -10,6 +11,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
+        $this->helper = $this->getGridHelper();
     }
 
     protected function _prepareCollection()
@@ -20,7 +22,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
     }
     protected function _prepareColumns()
     {
-        $helper = $this->getGridHelper();
+        $helper = $this->helper;
 
         $this->addColumn('entity_id', array(
             'header' => $helper->__('ID'),
@@ -50,27 +52,27 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
             'sortable'  => false
             ));
 
-//        $this->addColumn('action',
-//            array(
-//                'header'    => $helper->__('Action'),
-//                'width'     => '100',
-//                'type'      => 'action',
-//                'getter'    => 'getId',
-//                'actions'   => array(
-//                    array(
-//                        'caption'   => $helper->__('Edit'),
-//                        'url'       => array('base'=> '*/*/edit'),
-//                        'field'     => 'id'
-//                        )
-//                    ),
-//                'filter'    => false,
-//                'sortable'  => false,
-//                'index'     => 'stores',
-//                'is_system' => true,
-//                ));
+        $this->addColumn('action',
+            array(
+                'header'    => $helper->__('Action'),
+                'width'     => '100',
+                'type'      => 'action',
+                'getter'    => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption'   => $helper->__('Edit'),
+                        'url'       => array('base'=> '*/*/edit'),
+                        'field'     => 'id'
+                        )
+                    ),
+                'filter'    => false,
+                'sortable'  => false,
+                'index'     => 'stores',
+                'is_system' => true,
+                ));
 
-        $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV')); 
-        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
+//        $this->addExportType('*/*/exportCsv', Mage::helper('sales')->__('CSV'));
+//        $this->addExportType('*/*/exportExcel', Mage::helper('sales')->__('Excel'));
 
         return parent::_prepareColumns();
     }
@@ -80,20 +82,20 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
         return $this->getUrl("*/*/edit", array("id" => $row->getId()));
     }
 
-//    protected function _prepareMassaction()
-//    {
-//        $helper = $this->getHelper();
-//
-//        $this->setMassactionIdField('entity_id');
-//        $this->getMassactionBlock()->setFormFieldName('entity_ids');
-//        $this->getMassactionBlock()->setUseSelectAll(true);
-//        $this->getMassactionBlock()->addItem('remove_item', array(
-//            'label'=> $helper->__('Remove Item'),
-//            'url'  => $this->getUrl('*/adminhtml_adminproductgrid/massRemove'),
-//            'confirm' => $helper->__('Are you sure?')
-//            ));
-//        return $this;
-//    }
+    protected function _prepareMassaction()
+    {
+        $helper = $this->helper;
+
+        $this->setMassactionIdField('entity_id');
+        $this->getMassactionBlock()->setFormFieldName('entity_ids');
+        $this->getMassactionBlock()->setUseSelectAll(true);
+        $this->getMassactionBlock()->addItem('remove_item', array(
+            'label'=> $helper->__('Remove Item'),
+            'url'  => $this->getUrl('*/adminhtml_adminproductgrid/massRemove'),
+            'confirm' => $helper->__('Are you sure?')
+            ));
+        return $this;
+    }
 
     public function getGridHelper()
     {

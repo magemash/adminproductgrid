@@ -2,6 +2,13 @@
 
 class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_Controller_Action
 {
+    protected $helper;
+
+    public function _construct()
+    {
+        $this->helper = Mage::helper('adminproductgrid');
+    }
+
     protected function _initAction()
     {
         $this->loadLayout()->_setActiveMenu("adminproductgrid/productgridsetup")->_addBreadcrumb(Mage::helper("adminhtml")->__("Product Grid Setup"),Mage::helper("adminhtml")->__("Product Grid Setup"));
@@ -16,26 +23,26 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
         $this->renderLayout();
     }
 
-    public function editAction()
-    {
+//    public function editAction()
+//    {
 //			$this->_title($this->__("Menu"));
 //			$this->_title($this->__("Item"));
 //			$this->_title($this->__("Edit Item"));
 
 //			$id = $this->getRequest()->getParam("id");
-        $grid = Mage::getModel("adminproductgrid/grid")->getCollection();
+//        $grid = Mage::getModel("adminproductgrid/grid")->getCollection();
 //        die(var_dump($grid));
 
-        $model = Mage::getResourceModel("adminproductgrid/field_collection")->load();
+//        $model = Mage::getResourceModel("adminproductgrid/field_collection")->load();
 
 
 
-        $grid = Mage::getModel("adminproductgrid/grid");
-        $grid->setGridName('sss');
-        $grid->setType('sss');
-        $grid->setTitle('Sss');
+//        $grid = Mage::getModel("adminproductgrid/grid");
+//        $grid->setGridName('sss');
+//        $grid->setType('sss');
+//        $grid->setTitle('Sss');
 
-        $grid->save();
+//        $grid->save();
 
 
 //            die(var_dump($model->getData()));
@@ -53,7 +60,43 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
 //				Mage::getSingleton("adminhtml/session")->addError(Mage::helper("menu")->__("Item does not exist."));
 //				$this->_redirect("*/*/");
 //			}
+//        $this->_initAction();
+//        $this->renderLayout();
+//    }
+
+    public function newAction()
+    {
+        $this->_forward('edit');
+    }
+
+    public function editAction()
+    {
+        $this->_title($this->__("Grid"));
+        $this->_title($this->__("New Item"));
+
+        $id   = $this->getRequest()->getParam("id");
+        $model  = $this->getModel()->load($id);
+
+        $data = Mage::getSingleton("adminhtml/session")->getFormData(true);
+        if (!empty($data)) {
+            $model->setData($data);
+        }
+
+        Mage::register("grid_data", $model);
+
+        $this->loadLayout();
+        $this->_setActiveMenu("adminproductgrid/grid");
+
+        $this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
+
         $this->_initAction();
+
+        $this->_addBreadcrumb(Mage::helper("adminhtml")->__("Item Manager"), Mage::helper("adminhtml")->__("Item Manager"));
+        $this->_addBreadcrumb(Mage::helper("adminhtml")->__("Item Description"), Mage::helper("adminhtml")->__("Item Description"));
+
+
+//        $this->_addContent($this->getLayout()->createBlock("adminproductgrid/adminhtml_grid_edit"))->_addLeft($this->getLayout()->createBlock("adminproductgrid/adminhtml_grid_edit_tabs"));
+
         $this->renderLayout();
     }
 
@@ -62,7 +105,7 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
         $post_data=$this->getRequest()->getPost();
             if ($post_data) {
                 try {
-                    $model = Mage::getModel("menu/item")
+                    $model = $this->getModel()
                     ->addData($post_data)
                     ->setId($this->getRequest()->getParam("id"))
                     ->save();
@@ -85,5 +128,21 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
                 }
             }
             $this->_redirect("*/*/");
+    }
+
+    /**
+     * Get options fieldset block
+     *
+     */
+    public function fieldsAction()
+    {
+//        $this->_initProduct();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    protected function getModel()
+    {
+        return Mage::getModel('adminproductgrid/grid');
     }
 }

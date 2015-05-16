@@ -7,7 +7,30 @@
     </adminproductgrid_adminhtml_product_index>
     <adminproductgrid_adminhtml_grid_index>
         <reference name="content">
-            <block type="adminproductgrid/adminhtml_grid_grid" name="gridAdmin" />
+            <block type="adminproductgrid/adminhtml_grid" name="gridAdmin" />
         </reference>
     </adminproductgrid_adminhtml_grid_index>
+
+    <adminproductgrid_adminhtml_grid_new>
+        <update handle="adminproductgrid_adminhtml_grid_edit" />
+    </adminproductgrid_adminhtml_grid_new>
+
+    <adminproductgrid_adminhtml_grid_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="adminproductgrid/adminhtml_grid_edit" name="grid_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminproductgrid/adminhtml_grid_edit_tabs" name="grid_edit_tabs">
+                <block type="adminproductgrid/adminhtml_grid_edit_tab_main" name="grid_edit_tab_main" />
+                <action method="addTab"><name>main_section</name><block>grid_edit_tab_main</block></action>
+            </block>
+        </reference>
+    </adminproductgrid_adminhtml_grid_edit>
+
+    <adminproductgrid_adminhtml_grid_fields>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminproductgrid/adminhtml_grid_edit_tab_fields" name="admin.grid.fields"/>
+        </block>
+    </adminproductgrid_adminhtml_grid_fields>
 </layout>
