@@ -27,41 +27,41 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit extends Mage_Adminhtml
 		}
 		";
 
-        $this->_formScripts[] = "
-        function changeSelect(){
-            setSelected();
-        }";
-
-        $this->_formScripts[] = "
-
-        setSelected();
-
-        function setSelected() {
-            type = $('type');
-            selected = type.getValue();
-
-            if (selected === 'product') {
-                hideAndClear('order');
-                show('product')
-            } else if (selected === 'order') {
-                hideAndClear('product');
-                show('order')
-            } else {
-                hideAndClear('product');
-                hideAndClear('order');
-            }
-        }
-
-        function hideAndClear(id) {
-            $(id).up(1).hide();
-            $(id).setValue('');
-        }
-
-        function show(id) {
-            $(id).up(1).show();
-        }
-
-        ";
+//        $this->_formScripts[] = "
+//        function changeSelect(){
+//            setSelected();
+//        }";
+//
+//        $this->_formScripts[] = "
+//
+//        setSelected();
+//
+//        function setSelected() {
+//            type = $('type');
+//            selected = type.getValue();
+//
+//            if (selected === 'product') {
+//                hideAndClear('order');
+//                show('product')
+//            } else if (selected === 'order') {
+//                hideAndClear('product');
+//                show('order')
+//            } else {
+//                hideAndClear('product');
+//                hideAndClear('order');
+//            }
+//        }
+//
+//        function hideAndClear(id) {
+//            $(id).up(1).hide();
+//            $(id).setValue('');
+//        }
+//
+//        function show(id) {
+//            $(id).up(1).show();
+//        }
+//
+//        ";
 	}
 
 	public function getHeaderText()

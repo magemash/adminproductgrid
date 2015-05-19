@@ -26,6 +26,9 @@
                 <action method="addTab"><name>main_section</name><block>grid_edit_tab_main</block></action>
             </block>
         </reference>
+        <reference name="js">
+            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+        </reference>
     </adminproductgrid_adminhtml_grid_edit>
 
     <adminproductgrid_adminhtml_grid_fields>

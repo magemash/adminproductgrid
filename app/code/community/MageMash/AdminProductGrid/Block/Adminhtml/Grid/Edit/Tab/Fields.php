@@ -12,17 +12,29 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/product/edit/options.phtml');
+        $this->setTemplate('magemash/adminproductgrid/grid/edit/fields.phtml');
     }
 
-	protected function _prepareLayout()
+    protected function _prepareLayout()
+    {
+        $this->setChild('add_button',
+            $this->getLayout()->createBlock('adminhtml/widget_button')
+                ->setData(array(
+                    'label' => Mage::helper('catalog')->__('Add New Option'),
+                    'class' => 'add',
+                    'id'    => 'add_new_defined_option'
+                ))
+        );
+
+        $this->setChild('options_box',
+            $this->getLayout()->createBlock('adminproductgrid/adminhtml_grid_edit_tab_fields_field')
+        );
+
+        return parent::_prepareLayout();
+    }
+
+	/*protected function _prepareLayout()
 	{
-//		$form = new Varien_Data_Form();
-
-//		$fieldset = $form->addFieldset('grid_form', array(
-//			'legend' => $this->helper->__('Item information')
-//			));
-
         $model = Mage::registry('grid_data');
 
         $gridTypes = array(
@@ -30,9 +42,6 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
             array('value' => 'product', 'label' => 'Product'),
             array('value' => 'order', 'label' => 'Order')
         );
-
-
-
 
         $products = array(
             array('value' => '', 'label' => ''),
@@ -51,22 +60,6 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
             'order' => $orders,
         );
 
-
-//        if ($model->getType() === 'product' || $model->getType() === 'order') {
-//            $fieldset->addField('fields', 'multiselect', array(
-//                'label' => $this->helper->__('Products'),
-//                'name' => 'product',
-//                'values' => $types[$model->getType()]
-//            ));
-//        } else {
-//            $fieldset->addField('type', 'select', array(
-//                'label'    => $this->helper->__('Grid Types'),
-//                'name'     => 'type',
-//                'onchange' => 'changeSelect()',
-//                'values' => $gridTypes
-//            ));
-//        }
-
         $this->setChild('add_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(array(
@@ -77,33 +70,11 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
         );
 
         $this->setChild('options_box',
-            $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_options_option')
+            $this->getLayout()->createBlock('adminproductgrid/adminhtml_grid_edit_tab_fields_field')
         );
-//        $fieldset->addField('order', 'multiselect', array(
-//            'label'    => $this->helper->__('Orders'),
-//            'name'     => 'order',
-//            'values' => $products
-//        ));
-//		if (Mage::getSingleton('adminhtml/session')->getGridData()) {
-//			$form->setValues(Mage::getSingleton('adminhtml/session')->getGridData());
-//			Mage::getSingleton('adminhtml/session')->setGridData(null);
-//		}
-//        $fieldset->addField('type', 'text', array(
-//            'label'     => $this->helper->__('Type'),
-//            'class'     => 'required-entry',
-//            'required'  => true,
-//            'name'      => 'type',
-//        ));
-
-
-//		if($model) {
-//			$form->setValues($model->getData());
-//		}
-
-//        $this->setForm($form);
 
 		return parent::_prepareLayout();
-	}
+	}*/
 
     public function getAddButtonHtml()
     {
@@ -113,26 +84,6 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
     public function getOptionsBoxHtml()
     {
         return $this->getChildHtml('options_box');
-    }
-
-    /**
-     * Prepare label for tab
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return $this->helper->__('Fields');
-    }
-
-    /**
-     * Prepare title for tab
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return $this->helper->__('Fields');
     }
 
     /**
