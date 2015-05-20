@@ -96,7 +96,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
      */
     public function getFieldName()
     {
-        return 'product[options]';
+        return 'grid[fields]';
     }
 
     /**
@@ -106,7 +106,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
      */
     public function getFieldId()
     {
-        return 'product_option';
+        return 'grid_field';
     }
 
     /**
@@ -131,11 +131,16 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
 
         $path = 'global/catalog/product/options/custom/groups';
 
-        foreach (Mage::getConfig()->getNode($path)->children() as $group) {
-            $this->setChild($group->getName() . '_option_type',
+        $types = array(
+            'attribute',
+            'product',
+            'order'
+        );
+
+        foreach ($types as $type) {
+            $this->setChild($type . '_option_type',
                 $this->getLayout()->createBlock(
-                    (string) Mage::getConfig()->getNode($path . '/' . $group->getName() . '/render')
-                )
+                    'adminproductgrid/adminhtml_grid_edit_tab_fields_type_select')->setType($type)
             );
         }
 
@@ -159,11 +164,24 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData(array(
-                'id' => $this->getFieldId().'_{{id}}_type',
+                'id' => $this->getFieldId().'_{{id}}_field',
                 'class' => 'select select-product-option-type required-option-select'
             ))
-            ->setName($this->getFieldName().'[{{id}}][type]')
-            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getFieldSelect());
+            ->setName($this->getFieldName().'[{{id}}][field]')
+            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getAttributeSelect());
+
+        return $select->getHtml();
+    }
+
+    public function getTableSelectHtml()
+    {
+        $select = $this->getLayout()->createBlock('adminhtml/html_select')
+            ->setData(array(
+                'id' => $this->getFieldId().'_{{id}}_table',
+                'class' => 'select select-grid-field-type required-field-select'
+            ))
+            ->setName($this->getFieldName().'[{{id}}][table]')
+            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getTableSelect());
 
         return $select->getHtml();
     }
@@ -188,6 +206,11 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
      */
     public function getTemplatesHtml()
     {
+        //return $this->getFieldSelectHtml();
+        return $this->getChildHtml('attribute_option_type') . "\n" .
+            $this->getChildHtml('product_option_type') . "\n" .
+            $this->getChildHtml('order_option_type');
+
         $canEditPrice = $this->getCanEditPrice();
         $canReadPrice = $this->getCanReadPrice();
         $this->getChild('select_option_type')

@@ -38,6 +38,7 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_type" name="<?php echo $this->getFieldName() ?>[{{id}}][type]" value="{{type}}" />'+
             '<thead>'+
                 '<tr>'+
+                    '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Table') ?> <span class="required">*</span></th>'+
                     '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Field') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Header') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Width') ?> <span class="required">*</span></th>'+
@@ -47,6 +48,7 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
                 '</tr>'+
             '</thead>'+
             '<tr>'+
+                '<td><?php echo $this->getTableSelectHtml() ?></td>'+
                 '<td><?php echo $this->getFieldSelectHtml() ?></td>'+
                 '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_header" name="<?php echo $this->getFieldName() ?>[{{id}}][header]" value="{{header}}">{{checkboxScopeTitle}}</td>'+
                 '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_width" name="<?php echo $this->getFieldName() ?>[{{id}}][width]" value="{{width}}">{{checkboxScopeTitle}}</td>'+
@@ -137,30 +139,20 @@ var productOptionType = {
         var element = $(Event.findElement(event, 'select'));
 
         var group = '';
-        var previousGroupElm = $(element.readAttribute('id').sub('_type', '_previous_group'));
+        var previousGroupElm = $(element.readAttribute('id').sub('_table', '_previous_group'));
 
         switch(element.getValue()){
-            case 'field':
-            case 'area':
-                template = OptionTemplateText;
-                group = 'text';
+            case 'product':
+                template = OptionTemplateproduct;
+                group = 'product';
                 break;
-            case 'file':
-                template = OptionTemplateFile;
-                group = 'file';
+            case 'attribute':
+                template = OptionTemplateattribute;
+                group = 'attribute';
                 break;
-            case 'drop_down':
-            case 'radio':
-            case 'checkbox':
-            case 'multiple':
-                template = OptionTemplateSelect;
-                group = 'select';
-                break;
-            case 'date':
-            case 'date_time':
-            case 'time':
-                template = OptionTemplateDate;
-                group = 'date';
+            case 'order':
+                template = OptionTemplateorder;
+                group = 'order';
                 break;
             default:
                 template = '';
@@ -200,21 +192,21 @@ var productOptionType = {
                 this.secondTemplate = new Template(template, this.templateSyntax);
 
                 data = {};
-                if (!data.option_id) {
+                if (!data.field_id) {
                     data = {};
-                    data.option_id = $(element.readAttribute('id').sub('_type', '_id')).getValue();
+                    data.field_id = $(element.readAttribute('id').sub('_table', '_id')).getValue();
                 }
 
-                Element.insert(element.readAttribute('id').sub('_type', ''), {'after':this.secondTemplate.evaluate(data)});
+                Element.insert(element.readAttribute('id').sub('_table', ''), {'after':this.secondTemplate.evaluate(data)});
 
-                switch(element.getValue()){
-                    case 'drop_down':
-                    case 'radio':
-                    case 'checkbox':
-                    case 'multiple':
-                        selectOptionType.bindAddButton();
-                        break;
-                }
+//                switch(element.getValue()){
+//                    case 'drop_down':
+//                    case 'radio':
+//                    case 'checkbox':
+//                    case 'multiple':
+//                        selectOptionType.bindAddButton();
+//                        break;
+//                }
             }
         }
     },
@@ -281,7 +273,7 @@ var productOptionType = {
 
     },
     bindSelectInputType : function(){
-        var types = $$('.select-product-option-type');
+        var types = $$('.select-grid-field-type');
         for(var i=0;i<types.length;i++){
             if(!$(types[i]).binded){
                 $(types[i]).binded = true;
