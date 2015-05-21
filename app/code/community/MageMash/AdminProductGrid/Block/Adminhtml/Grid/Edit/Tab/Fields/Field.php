@@ -96,7 +96,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
      */
     public function getFieldName()
     {
-        return 'grid[fields]';
+        return 'fields';
     }
 
     /**
@@ -106,7 +106,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
      */
     public function getFieldId()
     {
-        return 'grid_field';
+        return 'fields';
     }
 
     /**

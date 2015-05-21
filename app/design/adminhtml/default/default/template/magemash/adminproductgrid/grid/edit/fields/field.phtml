@@ -36,10 +36,10 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_id" name="<?php echo $this->getFieldName() ?>[{{id}}][id]" value="{{id}}" />'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_option_id" name="<?php echo $this->getFieldName() ?>[{{id}}][option_id]" value="{{option_id}}" />'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_type" name="<?php echo $this->getFieldName() ?>[{{id}}][type]" value="{{type}}" />'+
+            '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_grid_id" name="<?php echo $this->getFieldName() ?>[{{id}}][grid_id]" value="<?php echo $this->getGrid();?>" />'+
             '<thead>'+
                 '<tr>'+
                     '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Table') ?> <span class="required">*</span></th>'+
-                    '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Field') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Header') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Width') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Options') ?> <span class="required">*</span></th>'+
@@ -49,7 +49,6 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
             '</thead>'+
             '<tr>'+
                 '<td><?php echo $this->getTableSelectHtml() ?></td>'+
-                '<td><?php echo $this->getFieldSelectHtml() ?></td>'+
                 '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_header" name="<?php echo $this->getFieldName() ?>[{{id}}][header]" value="{{header}}">{{checkboxScopeTitle}}</td>'+
                 '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_width" name="<?php echo $this->getFieldName() ?>[{{id}}][width]" value="{{width}}">{{checkboxScopeTitle}}</td>'+
                 '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_options" name="<?php echo $this->getFieldName() ?>[{{id}}][options]" value="{{options}}">{{checkboxScopeTitle}}</td>'+
@@ -144,15 +143,15 @@ var productOptionType = {
         switch(element.getValue()){
             case 'product':
                 template = OptionTemplateproduct;
-                group = 'product';
+                group = 'field';
                 break;
             case 'attribute':
                 template = OptionTemplateattribute;
-                group = 'attribute';
+                group = 'field';
                 break;
             case 'order':
                 template = OptionTemplateorder;
-                group = 'order';
+                group = 'field';
                 break;
             default:
                 template = '';
@@ -160,35 +159,10 @@ var productOptionType = {
                 break;
         }
 
-        if (previousGroupElm.getValue() != group) {
-            if ($(element.readAttribute('id')+'_'+previousGroupElm.getValue())) {
-                formElm = $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).descendants();
-                formElm.each(function(elm){
-                    if (elm.tagName == 'input' || elm.tagName == 'select') {
-                        elm.name = '__delete__'+elm.readAttribute('name');
-                    }
-                });
-
-                $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).addClassName('no-display');
-                $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).addClassName('ignore-validate');
-                $(element.readAttribute('id')+'_'+previousGroupElm.getValue()).hide();
-            }
-
-            previousGroupElm.value = group;
-
             if ($(element.readAttribute('id')+'_'+group)) {
-                formElm = $(element.readAttribute('id')+'_'+group).descendants();
-                formElm.each(function(elm){
-                    if (elm.match('input') || elm.match('select')) {
-                        elm.name = elm.readAttribute('name').sub('__delete__', '');
-                    }
-                });
-                $(element.readAttribute('id')+'_'+group).removeClassName('no-display');
-                $(element.readAttribute('id')+'_'+group).removeClassName('ignore-validate');
-                $(element.readAttribute('id')+'_'+group).show();
-
-            } else {
-                template = '<div id="'+element.readAttribute('id')+'_'+group+'" class="grid tier form-list">'+template+'</div><div id="'+element.readAttribute('id')+'_'+group+'_advice"></div';
+                document.getElementById(element.readAttribute('id')+'_'+group).remove();
+            }
+                template = '<div id="'+element.readAttribute('id')+'_'+group+'" class="grid tier form-list">'+template+'</div>';
                 this.secondTemplate = new Template(template, this.templateSyntax);
 
                 data = {};
@@ -198,78 +172,85 @@ var productOptionType = {
                 }
 
                 Element.insert(element.readAttribute('id').sub('_table', ''), {'after':this.secondTemplate.evaluate(data)});
-
-//                switch(element.getValue()){
-//                    case 'drop_down':
-//                    case 'radio':
-//                    case 'checkbox':
-//                    case 'multiple':
-//                        selectOptionType.bindAddButton();
-//                        break;
-//                }
-            }
-        }
     },
     addDataToValues : function(data){
 
         switch(data.type){
-            case 'field':
-            case 'area':
-                template = OptionTemplateText;
-                group = 'text';
+            case 'product':
+                template = OptionTemplateproduct;
+                group = 'field';
                 break;
-            case 'file':
-                template = OptionTemplateFile;
-                group = 'file';
+            case 'attribute':
+                template = OptionTemplateattribute;
+                group = 'field';
                 break;
-            case 'drop_down':
-            case 'radio':
-            case 'checkbox':
-            case 'multiple':
-                template = OptionTemplateSelect;
-                group = 'select';
+            case 'order':
+                template = OptionTemplateorder;
+                group = 'field';
                 break;
-            case 'date':
-            case 'date_time':
-            case 'time':
-                template = OptionTemplateDate;
-                group = 'date';
+            default:
+                template = '';
+                group = 'unknown';
                 break;
         }
+//        switch(data.type){
+//            case 'field':
+//            case 'area':
+//                template = OptionTemplateText;
+//                group = 'text';
+//                break;
+//            case 'file':
+//                template = OptionTemplateFile;
+//                group = 'file';
+//                break;
+//            case 'drop_down':
+//            case 'radio':
+//            case 'checkbox':
+//            case 'multiple':
+//                template = OptionTemplateSelect;
+//                group = 'select';
+//                break;
+//            case 'date':
+//            case 'date_time':
+//            case 'time':
+//                template = OptionTemplateDate;
+//                group = 'date';
+//                break;
+//        }
 
         $('<?php echo $this->getFieldId() ?>_'+data.id+'_previous_group').value = group;
 
-        template = '<div id="<?php echo $this->getFieldId() ?>_{{id}}_type_'+group+'" class="grid tier form-list">'+template+'</div><div id="<?php echo $this->getFieldId() ?>_{{id}}_type_'+group+'_advice"></div>';
+        template = '<div id="<?php echo $this->getFieldId() ?>_{{id}}_type_'+group+'" class="grid tier form-list">'+template+'</div>';
 
         this.secondTemplate = new Template(template, this.templateSyntax);
 
-        Element.insert($('<?php echo $this->getFieldId() ?>_'+data.option_id), {'after':this.secondTemplate.evaluate(data)});
+        Element.insert($('<?php echo $this->getFieldId() ?>_'+data.field_id), {'after':this.secondTemplate.evaluate(data)});
 
-        if (data.checkboxScopePrice) {
+//        if (data.checkboxScopePrice) {
             //set disabled
-            if ($('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price') && data.scopePriceDisabled) {
-                $('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price').disable();
-                $('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price_type').disable();
-            }
-        }
+//            if ($('<?php //echo $this->getFieldId() ?>//_'+data.option_id+'_price') && data.scopePriceDisabled) {
+//                $('<?php //echo $this->getFieldId() ?>//_'+data.option_id+'_price').disable();
+//                $('<?php //echo $this->getFieldId() ?>//_'+data.option_id+'_price_type').disable();
+//            }
+//        }
 
-        switch(data.type){
-            case 'drop_down':
-            case 'radio':
-            case 'checkbox':
-            case 'multiple':
-                data.optionValues.each(function(value) {
-                    selectOptionType.add(value);
-                });
-                selectOptionType.bindAddButton();
-                break;
-        }
+//        switch(data.type){
+//            case 'drop_down':
+//            case 'radio':
+//            case 'checkbox':
+//            case 'multiple':
+//                data.optionValues.each(function(value) {
+//                    selectOptionType.add(value);
+//                });
+//                selectOptionType.bindAddButton();
+//                break;
+//        }
 
-        if (data.price_type) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.option_id+'_price_type').options).each(function(option){
-                if (option.value==data.price_type) option.selected = true;
-            });
-        }
+//        if (data.price_type) {
+//            $A($('<?php //echo $this->getFieldId() ?>//_'+data.option_id+'_price_type').options).each(function(option){
+//                if (option.value==data.price_type) option.selected = true;
+//            });
+//        }
 
     },
     bindSelectInputType : function(){

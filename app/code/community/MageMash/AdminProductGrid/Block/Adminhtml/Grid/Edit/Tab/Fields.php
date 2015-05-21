@@ -25,9 +25,11 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
                     'id'    => 'add_new_defined_option'
                 ))
         );
+        $gridId = $this->getRequest()->getParams()['id'];
+
 
         $this->setChild('options_box',
-            $this->getLayout()->createBlock('adminproductgrid/adminhtml_grid_edit_tab_fields_field')
+            $this->getLayout()->createBlock('adminproductgrid/adminhtml_grid_edit_tab_fields_field')->setGrid($gridId)
         );
 
         return parent::_prepareLayout();

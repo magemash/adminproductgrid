@@ -103,6 +103,9 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
     public function saveAction()
     {
         $post_data=$this->getRequest()->getPost();
+
+//        die(var_dump($post_data));
+
             if ($post_data) {
                 try {
                     $model = $this->getModel()
