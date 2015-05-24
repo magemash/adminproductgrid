@@ -6,6 +6,7 @@ CREATE TABLE {$this->getTable('magemash_adminproductgrid_field')} (
     `entity_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `grid_id` INT(11) NOT NULL,
     `field` VARCHAR(255) NULL DEFAULT NULL,
+    `table_name` VARCHAR(255) NULL DEFAULT NULL,
     `header` VARCHAR(255) NULL DEFAULT NULL,
     `width` VARCHAR(255) NULL DEFAULT NULL,
     `type` VARCHAR(55) NULL DEFAULT NULL,

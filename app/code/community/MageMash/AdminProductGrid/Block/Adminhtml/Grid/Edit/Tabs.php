@@ -14,11 +14,15 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tabs extends Mage_Admi
 
     protected function _prepareLayout()
     {
-        $this->addTab('fields', array(
-            'label' => $this->helper->__('Fields'),
-            'url'   => $this->getUrl('*/*/fields', array('_current' => true)),
-            'class' => 'ajax',
-        ));
+        $params = $this->getRequest()->getParams();
+
+        if (array_key_exists('id', $params)) {
+            $this->addTab('fields', array(
+                'label' => $this->helper->__('Fields'),
+                'url' => $this->getUrl('*/*/fields', array('_current' => true)),
+                'class' => 'ajax',
+            ));
+        }
     }
 
 }

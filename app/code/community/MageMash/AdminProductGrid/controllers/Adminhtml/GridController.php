@@ -77,12 +77,12 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
         $id   = $this->getRequest()->getParam("id");
         $model  = $this->getModel()->load($id);
 
+        Mage::register("grid_data", $model);
+
         $data = Mage::getSingleton("adminhtml/session")->getFormData(true);
         if (!empty($data)) {
             $model->setData($data);
         }
-
-        Mage::register("grid_data", $model);
 
         $this->loadLayout();
         $this->_setActiveMenu("adminproductgrid/grid");
@@ -112,6 +112,10 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
                     ->addData($post_data)
                     ->setId($this->getRequest()->getParam("id"))
                     ->save();
+
+                    if (array_key_exists('fields', $post_data)) {
+                        $model->saveFields($post_data['fields']);
+                    }
 
                     Mage::getSingleton("adminhtml/session")->addSuccess(Mage::helper("adminhtml")->__("Item was successfully saved"));
                     Mage::getSingleton("adminhtml/session")->setItemData(false);

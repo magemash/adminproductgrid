@@ -80,5 +80,15 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
             ),
         );
     }
+
+    public function getField($field)
+    {
+        return $this->_getResource()->getField($field);
+    }
+
+    public function getFields($gridId)
+    {
+        return $this->_getResource()->getField($gridId);
+    }
 }
 	 

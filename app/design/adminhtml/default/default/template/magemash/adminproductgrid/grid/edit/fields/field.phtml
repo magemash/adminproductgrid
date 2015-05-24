@@ -138,7 +138,7 @@ var productOptionType = {
         var element = $(Event.findElement(event, 'select'));
 
         var group = '';
-        var previousGroupElm = $(element.readAttribute('id').sub('_table', '_previous_group'));
+        var previousGroupElm = $(element.readAttribute('id').sub('_table_name', '_previous_group'));
 
         switch(element.getValue()){
             case 'product':
@@ -168,10 +168,10 @@ var productOptionType = {
                 data = {};
                 if (!data.field_id) {
                     data = {};
-                    data.field_id = $(element.readAttribute('id').sub('_table', '_id')).getValue();
+                    data.field_id = $(element.readAttribute('id').sub('_table_name', '_id')).getValue();
                 }
 
-                Element.insert(element.readAttribute('id').sub('_table', ''), {'after':this.secondTemplate.evaluate(data)});
+                Element.insert(element.readAttribute('id').sub('_table_name', ''), {'after':this.secondTemplate.evaluate(data)});
     },
     addDataToValues : function(data){
 
