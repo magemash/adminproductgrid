@@ -34,7 +34,7 @@ var firstStepTemplate = '<div class="option-box" id="option_{{id}}">'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_previous_type" name="<?php echo $this->getFieldName() ?>[{{id}}][previous_type]" value="{{type}}" />'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_previous_group" name="<?php echo $this->getFieldName() ?>[{{id}}][previous_group]" value="" />'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_id" name="<?php echo $this->getFieldName() ?>[{{id}}][id]" value="{{id}}" />'+
-            '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_option_id" name="<?php echo $this->getFieldName() ?>[{{id}}][option_id]" value="{{option_id}}" />'+
+            '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_field_id" name="<?php echo $this->getFieldName() ?>[{{id}}][field_id]" value="{{field_id}}" />'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_type" name="<?php echo $this->getFieldName() ?>[{{id}}][type]" value="{{type}}" />'+
             '<input type="hidden" id="<?php echo $this->getFieldId() ?>_{{id}}_grid_id" name="<?php echo $this->getFieldName() ?>[{{id}}][grid_id]" value="<?php echo $this->getGrid();?>" />'+
             '<thead>'+
@@ -68,7 +68,7 @@ var productOption = {
             data = {};
             data.id  = this.itemCount;
             data.type = '';
-            data.option_id = 0;
+            data.field_id = this.itemCount;
         } else {
             this.itemCount = data.item_count;
         }
@@ -76,25 +76,25 @@ var productOption = {
         Element.insert(this.div, {'after':this.template.evaluate(data)});
 
         //set selected type
-        if (data.type) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_type').options).each(function(option){
-                if (option.value==data.type) option.selected = true;
+        if (data.table_name) {
+            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_table_name').options).each(function(option){
+                if (option.value==data.table_name) option.selected = true;
             });
         }
 
         //set selected is_require
-        if (data.is_require) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_is_require').options).each(function(option){
-                if (option.value==data.is_require) option.selected = true;
-            });
-        }
+//        if (data.is_require) {
+//            $A($('<?php //echo $this->getFieldId() ?>//_'+data.id+'_is_require').options).each(function(option){
+//                if (option.value==data.is_require) option.selected = true;
+//            });
+//        }
 
-        if (data.checkboxScopeTitle) {
-            //set disabled
-            if ($('<?php echo $this->getFieldId() ?>_'+data.option_id+'_title') && data.scopeTitleDisabled) {
-                $('<?php echo $this->getFieldId() ?>_'+data.option_id+'_title').disable();
-            }
-        }
+//        if (data.checkboxScopeTitle) {
+//            set disabled
+//            if ($('<?php //echo $this->getFieldId() ?>//_'+data.field_id+'_title') && data.scopeTitleDisabled) {
+//                $('<?php //echo $this->getFieldId() ?>//_'+data.field_id+'_title').disable();
+//            }
+//        }
 
         this.itemCount++;
         this.bindRemoveButtons();
@@ -175,7 +175,7 @@ var productOptionType = {
     },
     addDataToValues : function(data){
 
-        switch(data.type){
+        switch(data.table){
             case 'product':
                 template = OptionTemplateproduct;
                 group = 'field';
@@ -218,9 +218,9 @@ var productOptionType = {
 //                break;
 //        }
 
-        $('<?php echo $this->getFieldId() ?>_'+data.id+'_previous_group').value = group;
+//        $('<?php //echo $this->getFieldId() ?>//_'+data.id+'_previous_group').value = group;
 
-        template = '<div id="<?php echo $this->getFieldId() ?>_{{id}}_type_'+group+'" class="grid tier form-list">'+template+'</div>';
+        template = '<div id="<?php echo $this->getFieldId() ?>_{{id}}_table_name_'+group+'" class="grid tier form-list">'+template+'</div>';
 
         this.secondTemplate = new Template(template, this.templateSyntax);
 

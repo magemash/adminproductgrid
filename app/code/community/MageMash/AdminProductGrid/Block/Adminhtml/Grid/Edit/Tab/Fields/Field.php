@@ -177,7 +177,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')
             ->setData(array(
-                'id' => $this->getFieldId().'_{{id}}_table',
+                'id' => $this->getFieldId().'_{{id}}_table_name',
                 'class' => 'select select-grid-field-type required-field-select'
             ))
             ->setName($this->getFieldName().'[{{id}}][table_name]')
