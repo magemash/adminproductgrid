@@ -167,8 +167,8 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
                 'id' => $this->getFieldId().'_{{id}}_field',
                 'class' => 'select select-product-option-type required-option-select'
             ))
-            ->setName($this->getFieldName().'[{{id}}][field]')
-            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getAttributeSelect());
+            ->setName($this->getFieldName().'[{{id}}][field]');
+//            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getAttributeSelect());
 
         return $select->getHtml();
     }
@@ -247,10 +247,14 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
 
         $values = array();
 
+        $count = 0;
         foreach ($fields as $field) {
 //            $value = $field->getData();
 //            $values[] = new Varien_Object($value);
-            $values[] = $field;
+            $values[$count] = $field;
+            $values[$count]['id'] = $field->getFieldId();
+
+            $count++;
         }
 
         return $values;

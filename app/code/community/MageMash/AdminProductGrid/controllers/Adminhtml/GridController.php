@@ -113,6 +113,8 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
                     ->setId($this->getRequest()->getParam("id"))
                     ->save();
 
+//                    die(var_dump($post_data));
+
                     if (array_key_exists('fields', $post_data)) {
                         $model->saveFields($post_data['fields']);
                     }
