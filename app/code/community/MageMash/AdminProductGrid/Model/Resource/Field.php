@@ -11,7 +11,7 @@ class MageMash_AdminProductGrid_Model_Resource_Field extends Mage_Core_Model_Res
         parent::__construct();
     }
 
-    public function getField($field)
+    public function getFieldIfExists($field)
     {
         $collection = Mage::getResourceModel('adminproductgrid/field_collection')
             ->addFilter('grid_id', (int)$field['grid_id'])

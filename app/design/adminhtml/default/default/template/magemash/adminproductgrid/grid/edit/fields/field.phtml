@@ -181,11 +181,12 @@ var productOptionType = {
         this.secondTemplate = new Template(template, this.templateSyntax);
 
         $('fields_'+data.field_id+'_field').innerHTML = this.secondTemplate.evaluate();
-//        template = '<div id="<?php //echo $this->getFieldId() ?>//_{{id}}_table_name_'+group+'" class="grid tier form-list">'+template+'</div>';
-//
-//        this.secondTemplate = new Template(template, this.templateSyntax);
-//
-//        Element.insert($('<?php //echo $this->getFieldId() ?>//_'+data.field_id), {'after':this.secondTemplate.evaluate(data)});
+
+        if (data.field) {
+            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_field').options).each(function(option){
+                if (option.value==data.field) option.selected = true;
+            });
+        }
     },
     bindSelectInputType : function(){
         var types = $$('.select-grid-field-type');

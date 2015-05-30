@@ -2,19 +2,27 @@
 
 class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
 {
+    protected $attributes;
+    protected $fieldModel;
 
     protected function _construct()
     {
-       $this->_init('adminproductgrid/grid');
+        $this->_init('adminproductgrid/grid');
+        $this->fieldModel = Mage::getModel("adminproductgrid/field");
+        $this->attributes = $this->fieldModel->getAttributeSelect();
     }
 
     public function saveFields($fields)
     {
+//        die(var_dump($this->attributes));
+
         foreach ($fields as $field) {
 
-            $fieldModel = Mage::getModel("adminproductgrid/field");
+            $fieldModel = $this->fieldModel;
 
-            $f = $fieldModel->getField($field);
+            $f = $fieldModel->getFieldIfExists($field);
+
+            $field['type'] = $this->getFieldType($field);
 
             if ($f->getId() == null) {
                 $fieldModel->setData($field)
@@ -28,7 +36,8 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
                         ->setWidth($field['width'])
                         ->setSortOrder($field['sort_order'])
                         ->setOptions($field['options'])
-                        ->setTableName($field['table_name']);
+                        ->setTableName($field['table_name'])
+                        ->setType($field['type']);
 
                     if (array_key_exists('field', $field)) {
                         $f->setField($field['field']);
@@ -40,6 +49,23 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
         }
 
         return $this;
+    }
+
+    public function getFieldType($field)
+    {
+        switch ($field['table_name']) {
+            case 'attribute':
+                $attribute = $this->attributes[$field['field']];
+                if ($attribute['frontend_input'] === 'int') {
+                    return 'number';
+                }
+                if ($attribute['frontend_input'] === 'select') {
+                    return 'options';
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public function getFields($id)

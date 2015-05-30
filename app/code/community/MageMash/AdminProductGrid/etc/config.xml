@@ -47,6 +47,11 @@
             <adminproductgrid>
                 <class>MageMash_AdminProductGrid_Block</class>
             </adminproductgrid>
+            <adminhtml>
+                <rewrite>
+                    <page_menu>MageMash_AdminProductGrid_Block_Adminhtml_Menu</page_menu>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <helpers>
             <adminproductgrid>
@@ -75,8 +80,8 @@
             </adminproductgrid>
         </routers>
     </admin>
-
     <adminhtml>
+
         <layout>
             <updates>
                 <adminproductgrid>

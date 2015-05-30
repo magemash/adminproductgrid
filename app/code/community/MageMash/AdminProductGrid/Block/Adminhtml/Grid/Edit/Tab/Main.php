@@ -51,6 +51,22 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
             'name'      => 'grid_name',
         ));
 
+        $fieldset->addField('type', 'select', array(
+            'label'     => $this->helper->__('Grid Type'),
+            'class'     => 'required-entry',
+            'required'  => true,
+            'name'      => 'type',
+            'values'    => array(
+                array(
+                    'value'     => 'product',
+                    'label'     => 'product'
+                ),
+                array(
+                    'value'     => 'order',
+                    'label'     => 'order'
+                )
+            )
+        ));
 
 //		if (Mage::getSingleton('adminhtml/session')->getGridData()) {
 //			$form->setValues(Mage::getSingleton('adminhtml/session')->getGridData());

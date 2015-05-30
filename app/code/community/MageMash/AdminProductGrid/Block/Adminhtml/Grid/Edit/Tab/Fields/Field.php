@@ -53,6 +53,12 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
         $this->setCanEditPrice(true);
     }
 
+    public function getGridObject()
+    {
+        $id = Mage::registry('grid_id');
+        return Mage::getModel('adminproductgrid/grid')->load($id);
+    }
+
     public function getItemCount()
     {
         return $this->_itemCount;
@@ -181,7 +187,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
                 'class' => 'select select-grid-field-type required-field-select'
             ))
             ->setName($this->getFieldName().'[{{id}}][table_name]')
-            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getTableSelect());
+            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getTableSelect($this->getGridObject()->getType()));
 
         return $select->getHtml();
     }
@@ -241,7 +247,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
     {
         $id = Mage::registry('grid_id');
 
-        $grid = Mage::getModel('adminproductgrid/grid')->load($id);
+        $grid = $this->getGridObject();
 
         $fields = $grid->getFields($id);
 

@@ -15,8 +15,12 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
         $rows = array();
 
         foreach ($attributes as $attribute){
-            $rows[] = array('label' => $attribute->getAttributecode(),
-                'value' => $attribute->getAttributecode());
+            $rows[$attribute->getAttributecode()] = array(
+                'label' => $attribute->getAttributecode(),
+                'value' => $attribute->getAttributecode(),
+                'backend_type'  => $attribute->getBackendType(),
+                'frontend_input'  => $attribute->getFrontendInput()
+            );
         }
 
         return $rows;
@@ -26,8 +30,8 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
     {
         return array(
             array(
-                'label' => 'id',
-                'value' => 'id',
+                'label' => 'entity_id',
+                'value' => 'entity_id',
             ),
             array(
                 'label' => 'name',
@@ -44,12 +48,12 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
     {
         return array(
             array(
-                'label' => 'id',
-                'value' => 'id',
+                'label' => 'entity_id',
+                'value' => 'entity_id',
             ),
             array(
-                'label' => 'increment',
-                'value' => 'increment',
+                'label' => 'increment_id',
+                'value' => 'increment_id',
             ),
             array(
                 'label' => 'total',
@@ -58,32 +62,59 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
         );
     }
 
-    public function getTableSelect()
+    public function getTableSelect($type)
     {
-//        "sales/order_collection"
-//        "sales/order_address"
-//        "sales/order_grid"
-//        'value' => 'cataloginventory/stock_item',
-
-        return array(
-            array(
-                'label' => 'products',
-                'value' => 'product',
-            ),
-            array(
-                'label' => 'order',
-                'value' => 'order',
-            ),
-            array(
-                'label' => 'attribute',
-                'value' => 'attribute',
-            ),
-        );
+        switch($type) {
+            case 'product':
+                return array(
+                    array(
+                        'label' => 'products',
+                        'value' => 'product',
+                    ),
+                    array(
+                        'label' => 'attribute',
+                        'value' => 'attribute',
+                    ),
+                );
+            break;
+            case 'order':
+                return array(
+                    array(
+                        'label' => 'order',
+                        'value' => 'order',
+                    ),
+                );
+            break;
+            default:
+            return null;
+            break;
+        }
     }
 
-    public function getField($field)
+    public function getTypeOptions($key)
     {
-        return $this->_getResource()->getField($field);
+        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $key);
+
+        if ($attribute->usesSource()) {
+            $options = $attribute->getSource()->getAllOptions(false);
+        }
+
+        $optionKeys = array();
+
+        if (!empty($options)) {
+            foreach ($options as $option) {
+                if ($option['value'] != "") {
+                    $optionKeys[$option['value']] = $option['label'];
+                }
+            }
+        }
+
+        return $optionKeys;
+    }
+
+    public function getFieldIfExists($field)
+    {
+        return $this->_getResource()->getFieldIfExists($field);
     }
 
     public function getFields($gridId)

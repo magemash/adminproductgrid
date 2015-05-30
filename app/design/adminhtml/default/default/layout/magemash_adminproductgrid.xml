@@ -11,6 +11,12 @@
         </reference>
     </adminproductgrid_adminhtml_grid_index>
 
+    <adminproductgrid_adminhtml_view_index>
+        <reference name="content">
+            <block type="adminproductgrid/adminhtml_view" name="gridAdmin" />
+        </reference>
+    </adminproductgrid_adminhtml_view_index>
+
     <adminproductgrid_adminhtml_grid_new>
         <update handle="adminproductgrid_adminhtml_grid_edit" />
     </adminproductgrid_adminhtml_grid_new>
