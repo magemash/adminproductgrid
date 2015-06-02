@@ -45,7 +45,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_View_Grid extends Mage_Adminhtml
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
-        $this->setUseAjax(true);
+//        $this->setUseAjax(true);
         $this->setVarNameFilter('product_filter');
         $this->helper = $this->getGridHelper();
 
@@ -143,20 +143,20 @@ class MageMash_AdminProductGrid_Block_Adminhtml_View_Grid extends Mage_Adminhtml
         return $this;
     }
 
-//    protected function _addColumnFilterToCollection($column)
-//    {
-//        if ($this->getCollection()) {
-//            if ($column->getId() == 'websites') {
-//                $this->getCollection()->joinField('websites',
-//                    'catalog/product_website',
-//                    'website_id',
-//                    'product_id=entity_id',
-//                    null,
-//                    'left');
-//            }
-//        }
-//        return parent::_addColumnFilterToCollection($column);
-//    }
+    protected function _addColumnFilterToCollection($column)
+    {
+        if ($this->getCollection()) {
+            if ($column->getId() == 'websites') {
+                $this->getCollection()->joinField('websites',
+                    'catalog/product_website',
+                    'website_id',
+                    'product_id=entity_id',
+                    null,
+                    'left');
+            }
+        }
+        return parent::_addColumnFilterToCollection($column);
+    }
 
     protected function _prepareColumns()
     {
@@ -352,7 +352,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_View_Grid extends Mage_Adminhtml
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/index', array('_current'=>true, 'id' => $this->id));
+        return $this->getUrl('*/*/index', array('_current' => true, 'id' => $this->id));
     }
 
     public function getRowUrl($row)

@@ -31,4 +31,12 @@ class MageMash_AdminProductGrid_Adminhtml_ViewController extends Mage_Adminhtml_
 
         $this->renderLayout();
     }
+
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('adminprodctgrid/adminhtml_view_grid')->toHtml()
+        );
+    }
 }

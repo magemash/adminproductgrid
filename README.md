@@ -10,6 +10,18 @@
 
 ##Features
 
+## TODO
+Mass Actions
+ajax editing
+Ajax sorting?
+all product fields
+all order fields
+other tables?
+license
+encryption
+filters?
+
+
 ###Free
 multiple grids for products and orders
 limited fields to add
