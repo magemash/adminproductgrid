@@ -1,20 +1,103 @@
-<div class="grid">
+<?php echo $this->getChildHtml('add_button');?>
+<div id="filter_items_top"></div>
 
-  <table id="answer_grid" class="data" cellspacing="0">
-    <thead>
-      <tr class="headings">
-        <th>Label</th>
-        <th>Description</th>
-        <th>Image</th>
-        <th>Clear Other</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
 
-</div>
-  <p class="a-right">
-    <button id="add_answer_btn" type="button" class="button">Add</button>
-  </p>
+<?php $form = $this->getForm();?>
+<script type="text/javascript">
+    //<![CDATA[
+    var repeaterTemplate = <?php
+        foreach ($form->getElements() as $element) {
+            $lines = explode("\n", $element->toHtml());
+            foreach ($lines as $line) {
+            echo "'".$line."'+\n";
+            }
+        }?>
+        ' ';
+
+
+    var productOption = {
+        div : $('filter_items_top'),
+        templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+        templateText : repeaterTemplate,
+        itemCount : 1,
+        add : function(data) {
+            this.template = new Template(this.templateText, this.templateSyntax);
+
+            Element.insert(this.div, {'after':this.template.evaluate(data)});
+
+            //set selected type
+//            if (data.table_name) {
+//                $A($('<?php //echo $this->getFieldId() ?>//_'+data.id+'_table_name').options).each(function(option){
+//                    if (option.value==data.table_name) option.selected = true;
+//                });
+//            }
+
+//            this.itemCount++;
+//            this.bindRemoveButtons();
+            //productOptionType.bindSelectInputType();
+        },
+        remove : function(event){
+//            var element = $(Event.findElement(event, 'div'));
+//            if(element){
+//                $(element.readAttribute('id')+'_'+'is_delete').value = '1';
+//                element.addClassName('no-display');
+//                element.addClassName('ignore-validate');
+//                element.hide();
+//            }
+        },
+        bindRemoveButtons : function(){
+//            var buttons = $$('div.product-custom-options .delete-product-option');
+//            for(var i=0;i<buttons.length;i++){
+//                if(!$(buttons[i]).binded){
+//                    $(buttons[i]).binded = true;
+//                    Event.observe(buttons[i], 'click', this.remove.bind(this));
+//                }
+//            }
+//            var inputs = $$('div.product-custom-options button', 'div.product-custom-options input', 'div.product-custom-options select', 'div.product-custom-options textarea');
+<?php //if ($this->isReadonly()):?>
+//            for (var i=0, l = inputs.length; i < l; i ++) {
+//                inputs[i].disabled = true;
+//                if (inputs[i].tagName.toLowerCase()=='button') {
+//                    inputs[i].addClassName('disabled');
+//                }
+//            }
+<?php //else: ?>
+//            inputs.each(function(el) { Event.observe(el, 'change', el.setHasChanges.bind(el));  } )
+<?php //endif;?>
+        }
+    }
+
+
+
+//    if($('option_panel')){
+//        $('option_panel').remove();
+//    }
+
+//    productOption.bindRemoveButtons();
+
+    if($('<?php echo $this->getChild('add_button')->getId() ?>')){
+        Event.observe('<?php echo $this->getChild('add_button')->getId() ?>', 'click', productOption.add.bind(productOption));
+    }
+
+    //validation for selected input type
+//    Validation.addAllThese([
+//        ['required-option-select', <?php //echo $this->helper('core')->jsonEncode(Mage::helper('catalog')->__('Select type of option')) ?>//, function(v, elm) {
+//            if (elm.getValue() == '') {
+//                return false;
+//            }
+//            return true;
+//        }]]);
+
+    //adding data to templates
+<!--    --><?php //foreach ($this->getOptionValues() as $_value): ?>
+//    productOption.add(<?php //echo $_value->toJson() ?>//);
+//    productOptionType.addDataToValues(<?php //echo $_value->toJson() ?>//);
+<!--    --><?php //endforeach; ?>
+
+    //bind scope checkboxes
+    //productOptionScope.bindScopeCheckbox();
+
+//]]>
+</script>
+
+

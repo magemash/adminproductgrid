@@ -82,7 +82,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
 			$form->setValues($model->getData());
 		}
 
-        $form->setUseContainer(true);
+        $form->setUseContainer(false);
         $this->setForm($form);
 
 		return parent::_prepareForm();
