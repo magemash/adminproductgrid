@@ -10,8 +10,11 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Widget_Form_Element_FilterWidget
 
     public function getElementHtml()
     {
-        return Mage::app()->getLayout()
-	        ->createBlock('adminproductgrid/adminhtml_filter_grid')
-	        ->toHtml();
+        $block = Mage::app()->getLayout()
+	        ->createBlock('adminproductgrid/adminhtml_filter_grid');
+
+        $block->setFormValue($this->getValue());
+
+        return $block->toHtml();
     }
 }

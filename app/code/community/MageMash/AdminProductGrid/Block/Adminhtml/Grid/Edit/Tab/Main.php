@@ -68,9 +68,9 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
             )
         ));
 
-        $fieldset->addType('filter','MageMash_AdminProductGrid_Block_Adminhtml_Widget_Form_Element_FilterWidget');
+        $fieldset->addType('filters','MageMash_AdminProductGrid_Block_Adminhtml_Widget_Form_Element_FilterWidget');
 
-        $fieldset->addField('filter', 'filter', array(
+        $fieldset->addField('filters', 'filters', array(
             'label'         => 'Filters',
         ));
 
@@ -78,6 +78,13 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
 //			$form->setValues(Mage::getSingleton('adminhtml/session')->getGridData());
 //			Mage::getSingleton('adminhtml/session')->setGridData(null);
 //		}
+
+        $model->setFilters(array(
+            array('ddd','ddd'),
+            array('dddddd','dddddd'),
+            array('ddd333','ddd333'),
+        ));
+
 		if($model) {
 			$form->setValues($model->getData());
 		}

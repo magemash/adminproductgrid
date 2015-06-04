@@ -1,58 +1,73 @@
 <?php echo $this->getChildHtml('add_button');?>
-<div id="filter_items_top"></div>
+<div id="<?php echo $this->getFormName();?>_items_top"></div>
 
 
 <?php $form = $this->getForm();?>
 <script type="text/javascript">
     //<![CDATA[
-    var repeaterTemplate = <?php
-        foreach ($form->getElements() as $element) {
+    var repeaterTemplate = '<div id="<?php echo $this->getFormName();?>_{{id}}" class="<?php echo $this->getFormName();?>_form <?php echo $this->getFormName();?>_{{id}}">'+
+        '<input type="hidden" id="<?php echo $this->getFormName() ?>_{{id}}_is_delete" name="<?php echo $this->getFormId();?>[is_delete]" value="" />'+
+        <?php foreach ($form->getElements() as $element) {
             $lines = explode("\n", $element->toHtml());
             foreach ($lines as $line) {
             echo "'".$line."'+\n";
             }
         }?>
-        ' ';
+        '<span class="a-right"><?php echo $this->jsQuoteEscape($this->getDeleteButtonHtml()) ?></span>'+
+        '</div>';
 
 
     var productOption = {
-        div : $('filter_items_top'),
+        div : $('filters_items_top'),
         templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
         templateText : repeaterTemplate,
         itemCount : 1,
         add : function(data) {
             this.template = new Template(this.templateText, this.templateSyntax);
 
+            if(!data.id){
+                data = {};
+                data.id  = this.itemCount;
+                data.field_id = this.itemCount;
+                <?php foreach ($form->getElements() as $element) {
+                    echo "data." . $element->getId() . " = '';\n";
+                }?>
+
+            } else {
+//            this.itemCount = data.item_count;
+            }
+
             Element.insert(this.div, {'after':this.template.evaluate(data)});
 
-            //set selected type
-//            if (data.table_name) {
-//                $A($('<?php //echo $this->getFieldId() ?>//_'+data.id+'_table_name').options).each(function(option){
+                //set selected type
+    //            if (data.table_name) {
+    //                $A($('<?php //echo $this->getFieldId() ?>//_'+data.id+'_table_name').options).each(function(option){
 //                    if (option.value==data.table_name) option.selected = true;
 //                });
 //            }
 
-//            this.itemCount++;
-//            this.bindRemoveButtons();
-            //productOptionType.bindSelectInputType();
-        },
-        remove : function(event){
-//            var element = $(Event.findElement(event, 'div'));
-//            if(element){
-//                $(element.readAttribute('id')+'_'+'is_delete').value = '1';
-//                element.addClassName('no-display');
-//                element.addClassName('ignore-validate');
-//                element.hide();
-//            }
-        },
-        bindRemoveButtons : function(){
-//            var buttons = $$('div.product-custom-options .delete-product-option');
-//            for(var i=0;i<buttons.length;i++){
-//                if(!$(buttons[i]).binded){
-//                    $(buttons[i]).binded = true;
-//                    Event.observe(buttons[i], 'click', this.remove.bind(this));
-//                }
-//            }
+        this.itemCount++;
+        this.bindRemoveButtons();
+//            productOptionType.bindSelectInputType();
+    },
+    remove : function(event){
+        var element = $(Event.findElement(event, 'div'));
+        console.log(element);
+        if(element){
+            $(element.readAttribute('id')+'_'+'is_delete').value = '1';
+            element.addClassName('no-display');
+            element.addClassName('ignore-validate');
+            element.hide();
+        }
+    },
+    bindRemoveButtons : function(){
+        var buttons = $$('div.<?php echo $this->getFormName();?>_form .delete-<?php echo $this->getFormName();?>');
+        for(var i=0;i<buttons.length;i++){
+            if(!$(buttons[i]).binded){
+                $(buttons[i]).binded = true;
+                Event.observe(buttons[i], 'click', this.remove.bind(this));
+            }
+        }
 //            var inputs = $$('div.product-custom-options button', 'div.product-custom-options input', 'div.product-custom-options select', 'div.product-custom-options textarea');
 <?php //if ($this->isReadonly()):?>
 //            for (var i=0, l = inputs.length; i < l; i ++) {
@@ -89,10 +104,9 @@
 //        }]]);
 
     //adding data to templates
-<!--    --><?php //foreach ($this->getOptionValues() as $_value): ?>
-//    productOption.add(<?php //echo $_value->toJson() ?>//);
-//    productOptionType.addDataToValues(<?php //echo $_value->toJson() ?>//);
-<!--    --><?php //endforeach; ?>
+<?php foreach ($this->getFormValue() as $_value): ?>
+    productOption.add(<?php echo json_encode($_value) ?>);
+<?php endforeach; ?>
 
     //bind scope checkboxes
     //productOptionScope.bindScopeCheckbox();
