@@ -62,6 +62,62 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
         );
     }
 
+    public function getFilterConditionSelect()
+    {
+        return array(
+            array(
+                'label' => '',
+                'value' => '',
+            ),
+            array(
+                'label' => 'Less Than',
+                'value' => 'lt',
+            ),
+            array(
+                'label' => 'More Than',
+                'value' => 'mt',
+            ),
+            array(
+                'label' => 'Less Than or Equal To',
+                'value' => 'lte',
+            ),
+            array(
+                'label' => 'More Than or Equal To',
+                'value' => 'mte',
+            ),
+            array(
+                'label' => 'Like',
+                'value' => 'l',
+            ),
+            array(
+                'label' => 'Not Like',
+                'value' => 'nl',
+            ),
+            array(
+                'label' => 'In',
+                'value' => 'i',
+            ),
+            array(
+                'label' => 'Not In',
+                'value' => 'ni',
+            ),
+        );
+    }
+
+    public function getFilterTypes()
+    {
+        return array(
+            'lt'  => ' < ',
+            'mt'  => ' > ',
+            'lte'  => ' <= ',
+            'mte'  => ' >= ',
+            'l'  => ' LIKE ',
+            'nl'  => ' NOT LIKE ',
+            'i'  => ' IN ',
+            'ni'  => ' NOT IN ',
+        );
+    }
+
     public function getTableSelect($type)
     {
         switch($type) {

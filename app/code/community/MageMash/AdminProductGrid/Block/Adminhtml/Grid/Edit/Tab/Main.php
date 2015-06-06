@@ -19,22 +19,6 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
 			'legend' => $this->helper->__('Item information')
 			));
 
-//		$fieldset->addField('status', 'select', array(
-//			'label'     => Mage::helper('menu')->__('Status'),
-//			'name'      => 'status',
-//			'values'    => array(
-//				array(
-//					'value'     => 1,
-//					'label'     => Mage::helper('menu')->__('Enabled'),
-//					),
-//
-//				array(
-//					'value'     => 2,
-//					'label'     => Mage::helper('menu')->__('Disabled'),
-//					),
-//				),
-//			));
-
         $model = Mage::registry('grid_data');
 
 		$fieldset->addField('title', 'text', array(
@@ -66,23 +50,6 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
                     'label'     => 'order'
                 )
             )
-        ));
-
-        $fieldset->addType('filters','MageMash_AdminProductGrid_Block_Adminhtml_Widget_Form_Element_FilterWidget');
-
-        $fieldset->addField('filters', 'filters', array(
-            'label'         => 'Filters',
-        ));
-
-//		if (Mage::getSingleton('adminhtml/session')->getGridData()) {
-//			$form->setValues(Mage::getSingleton('adminhtml/session')->getGridData());
-//			Mage::getSingleton('adminhtml/session')->setGridData(null);
-//		}
-
-        $model->setFilters(array(
-            array('ddd','ddd'),
-            array('dddddd','dddddd'),
-            array('ddd333','ddd333'),
         ));
 
 		if($model) {

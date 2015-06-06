@@ -192,6 +192,19 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
         return $select->getHtml();
     }
 
+    public function getFilterConditionSelectHtml()
+    {
+        $select = $this->getLayout()->createBlock('adminhtml/html_select')
+            ->setData(array(
+                'id' => $this->getFieldId().'_{{id}}_filter_condition',
+                'class' => 'select select-filter-condition-type'
+            ))
+            ->setName($this->getFieldName().'[{{id}}][filter_condition]')
+            ->setOptions(Mage::getSingleton('adminproductgrid/field')->getFilterConditionSelect());
+
+        return $select->getHtml();
+    }
+
     public function getRequireSelectHtml()
     {
         $select = $this->getLayout()->createBlock('adminhtml/html_select')

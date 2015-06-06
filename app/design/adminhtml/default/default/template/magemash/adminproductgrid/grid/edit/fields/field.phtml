@@ -43,7 +43,8 @@ var firstStepTemplate = '<div class="option-box" id="fields_{{id}}">'+
                     '<th class="opt-type"><?php echo Mage::helper('catalog')->__('Field') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Header') ?> <span class="required">*</span></th>'+
                     '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Width') ?> <span class="required">*</span></th>'+
-                    '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Options') ?> <span class="required">*</span></th>'+
+                    '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Filter Condition') ?></th>'+
+                    '<th class="opt-title"><?php echo Mage::helper('catalog')->__('Filter Value') ?></th>'+
                     '<th class="opt-order"><?php echo Mage::helper('catalog')->__('Sort Order') ?></th>'+
                     '<th class="a-right"><?php echo $this->jsQuoteEscape($this->getDeleteButtonHtml()) ?></th>'+
                 '</tr>'+
@@ -51,9 +52,10 @@ var firstStepTemplate = '<div class="option-box" id="fields_{{id}}">'+
             '<tr>'+
                 '<td><?php echo $this->getTableSelectHtml() ?></td>'+
                 '<td><?php echo $this->getFieldSelectHtml() ?></td>'+
-                '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_header" name="<?php echo $this->getFieldName() ?>[{{id}}][header]" value="{{header}}">{{checkboxScopeTitle}}</td>'+
-                '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_width" name="<?php echo $this->getFieldName() ?>[{{id}}][width]" value="{{width}}">{{checkboxScopeTitle}}</td>'+
-                '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_options" name="<?php echo $this->getFieldName() ?>[{{id}}][options]" value="{{options}}">{{checkboxScopeTitle}}</td>'+
+                '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_header" name="<?php echo $this->getFieldName() ?>[{{id}}][header]" value="{{header}}"></td>'+
+                '<td><input type="text" class="required-entry input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_width" name="<?php echo $this->getFieldName() ?>[{{id}}][width]" value="{{width}}"></td>'+
+                '<td><?php echo $this->getFilterConditionSelectHtml() ?></td>'+
+                '<td><input type="text" class=" input-text" id="<?php echo $this->getFieldId() ?>_{{id}}_filter_value" name="<?php echo $this->getFieldName() ?>[{{id}}][filter_value]" value="{{filter_value}}"></td>'+
                 '<td><input type="text" class="validate-zero-or-greater input-text" name="<?php echo $this->getFieldName() ?>[{{id}}][sort_order]" value="{{sort_order}}"></td>'+
                 '<td>&nbsp;</td>'+
             '</tr></table></div>';
@@ -74,25 +76,31 @@ var productOption = {
             data.table_name = "product";
             data.sort_order = "";
             data.width = "";
-            data.options = "";
+            data.filter_condition = "";
+            data.filter_value = "";
         } else {
 //            this.itemCount = data.item_count;
         }
 
-        console.log(data);
-
         Element.insert(this.div, {'after':this.template.evaluate(data)});
 
         //set selected type
+
         if (data.table_name) {
-            $A($('<?php echo $this->getFieldId() ?>_'+data.id+'_table_name').options).each(function(option){
-                if (option.value==data.table_name) option.selected = true;
-            });
+            this.addSelect('<?php echo $this->getFieldId() ?>', 'table_name', data.id, data.table_name );
+        }
+        if (data.filter_condition) {
+            this.addSelect('<?php echo $this->getFieldId() ?>', 'filter_condition', data.id, data.filter_condition );
         }
 
         this.itemCount++;
         this.bindRemoveButtons();
         productOptionType.bindSelectInputType();
+    },
+    addSelect: function(fieldId, name, id, value) {
+        $A($(fieldId+'_'+id+'_'+name).options).each(function(option){
+            if (option.value==value) option.selected = true;
+        });
     },
     remove : function(event){
         var element = $(Event.findElement(event, 'div'));
@@ -124,7 +132,6 @@ var productOption = {
         <?php endif;?>
     }
 }
-
 
 var productOptionType = {
     templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,

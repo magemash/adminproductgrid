@@ -14,7 +14,6 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
 
     public function saveFields($fields)
     {
-//        die(var_dump($this->attributes));
 
         foreach ($fields as $field) {
 
@@ -29,15 +28,16 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
                     ->save();
             } else {
 
-                if ($field['is_delete']) {
+                if ($field['is_delete'] == '1') {
                     $f->delete();
                 } else {
                     $f->setHeader($field['header'])
-                        ->setWidth($field['width'])
-                        ->setSortOrder($field['sort_order'])
-                        ->setOptions($field['options'])
-                        ->setTableName($field['table_name'])
-                        ->setType($field['type']);
+                    ->setWidth($field['width'])
+                    ->setSortOrder($field['sort_order'])
+                    ->setTableName($field['table_name'])
+                    ->setType($field['type'])
+                    ->setFilterCondition($field['filter_condition'])
+                    ->setFilterValue($field['filter_value']);
 
                     if (array_key_exists('field', $field)) {
                         $f->setField($field['field']);

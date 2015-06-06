@@ -13,6 +13,8 @@ CREATE TABLE {$this->getTable('magemash_adminproductgrid_field')} (
     `type` VARCHAR(55) NULL DEFAULT NULL,
     `index` VARCHAR(55) NULL DEFAULT NULL,
     `options` VARCHAR(55) NULL DEFAULT NULL,
+    `filter_condition` VARCHAR(55) NULL DEFAULT NULL,
+    `filter_value` VARCHAR(55) NULL DEFAULT NULL,
     `sortable` VARCHAR(55) NULL DEFAULT NULL,
     `sort_order` SMALLINT(6) UNSIGNED NOT NULL DEFAULT '0',
     `created_time` DATETIME NULL DEFAULT NULL,
