@@ -12,11 +12,28 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
         $this->attributes = $this->fieldModel->getAttributeSelect();
     }
 
+    public function getBase()
+    {
+        $base = "";
+
+        switch($this->getType()) {
+            case "product":
+                $base = "adminhtml/catalog_product";
+                break;
+            case "order":
+                $base = "adminhtml/order";
+                break;
+            default:
+                $base = "";
+                break;
+        }
+
+        return $base;
+    }
+
     public function saveFields($fields)
     {
-
         foreach ($fields as $field) {
-
             $fieldModel = $this->fieldModel;
 
             $f = $fieldModel->getFieldIfExists($field);
@@ -27,7 +44,6 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
                 $fieldModel->setData($field)
                     ->save();
             } else {
-
                 if ($field['is_delete'] == '1') {
                     $f->delete();
                 } else {
@@ -62,6 +78,22 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
                 if ($attribute['frontend_input'] === 'select') {
                     return 'options';
                 }
+                break;
+            case 'product':
+                $types = array(
+                    'qty' => 'number',
+                    'name' => 'text',
+                    'entity_id' => 'number',
+                );
+                return $types[$field['field']];
+                break;
+            case 'order':
+                $types = array(
+                    'total' => 'number',
+                    'increment_id' => 'number',
+                    'entity_id' => 'number',
+                );
+                return $types[$field['field']];
                 break;
             default:
                 break;

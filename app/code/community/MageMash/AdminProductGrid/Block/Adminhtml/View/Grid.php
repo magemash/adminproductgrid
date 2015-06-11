@@ -293,7 +293,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_View_Grid extends Mage_Adminhtml
                     array(
                         'caption' => Mage::helper('catalog')->__('Edit'),
                         'url'     => array(
-                            'base'=>'*/*/edit',
+                            'base'=> $this->customGrid->getBase() . '/edit',
                             'params'=>array('store'=>$this->getRequest()->getParam('store'))
                         ),
                         'field'   => 'id'
@@ -357,7 +357,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_View_Grid extends Mage_Adminhtml
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array(
+        return $this->getUrl($this->customGrid->getBase() . '/edit', array(
             'store'=>$this->getRequest()->getParam('store'),
             'id'=>$row->getId())
         );
