@@ -1,6 +1,6 @@
 <?php
 
-class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_Controller_Action
+class MageMash_Adminproductgrid_Adminhtml_CustomgridController extends Mage_Adminhtml_Controller_Action
 {
     protected $helper;
 
@@ -11,7 +11,8 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
 
     protected function _initAction()
     {
-        $this->loadLayout()->_setActiveMenu("adminproductgrid/productgridsetup")->_addBreadcrumb(Mage::helper("adminhtml")->__("Product Grid Setup"),Mage::helper("adminhtml")->__("Product Grid Setup"));
+        $this->loadLayout();
+//        $this->loadLayout()->_setActiveMenu("adminproductgrid/productgridsetup")->_addBreadcrumb(Mage::helper("adminhtml")->__("Product Grid Setup"),Mage::helper("adminhtml")->__("Product Grid Setup"));
         return $this;
     }
 
@@ -20,6 +21,7 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
         $this->_title($this->__("Grids"));
 
         $this->_initAction();
+
         $this->renderLayout();
     }
 
@@ -30,6 +32,12 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
 
     public function editAction()
     {
+        $field = new MageMash_Adminproductgrid_Model_Field();
+
+        $table = $field->getTypeSelects();
+
+//        die(var_dump($table));
+
         $this->_title($this->__("Grid"));
         $this->_title($this->__("New Item"));
 
@@ -45,7 +53,7 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
         }
 
         $this->loadLayout();
-        $this->_setActiveMenu("adminproductgrid/grid");
+        $this->_setActiveMenu("adminproductgrid/customgrid");
 
         $this->getLayout()->getBlock("head")->setCanLoadExtJs(true);
 
@@ -105,6 +113,6 @@ class MageMash_AdminProductGrid_Adminhtml_GridController extends Mage_Adminhtml_
 
     protected function getModel()
     {
-        return Mage::getModel('adminproductgrid/grid');
+        return Mage::getModel('adminproductgrid/customgrid');
     }
 }

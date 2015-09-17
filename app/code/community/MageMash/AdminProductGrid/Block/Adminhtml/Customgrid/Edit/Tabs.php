@@ -1,12 +1,12 @@
 <?php
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
     protected $helper;
 
     public function __construct()
     {
         parent::__construct();
-        $this->setId("grid_tabs");
+        $this->setId("customgrid_tabs");
         $this->helper = Mage::helper('adminproductgrid');
         $this->setDestElementId("edit_form");
         $this->setTitle($this->helper->__("Grid Information"));

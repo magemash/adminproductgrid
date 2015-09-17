@@ -5,11 +5,12 @@
             <block type="adminproductgrid/adminhtml_catalog_product_grid" name="productAdmin" />
         </reference>
     </adminproductgrid_adminhtml_product_index>
-    <adminproductgrid_adminhtml_grid_index>
+
+    <adminhtml_customgrid_index>
         <reference name="content">
-            <block type="adminproductgrid/adminhtml_grid" name="gridAdmin" />
+            <block type="adminproductgrid/adminhtml_customgrid" name="gridAdmin" />
         </reference>
-    </adminproductgrid_adminhtml_grid_index>
+    </adminhtml_customgrid_index>
 
     <adminproductgrid_adminhtml_view_index>
         <reference name="content">
@@ -17,29 +18,29 @@
         </reference>
     </adminproductgrid_adminhtml_view_index>
 
-    <adminproductgrid_adminhtml_grid_new>
-        <update handle="adminproductgrid_adminhtml_grid_edit" />
-    </adminproductgrid_adminhtml_grid_new>
+    <adminhtml_customgrid_new>
+        <update handle="adminproductgrid_adminhtml_customgrid_edit" />
+    </adminhtml_customgrid_new>
 
-    <adminproductgrid_adminhtml_grid_edit>
+    <adminhtml_customgrid_edit>
         <!--<update handle="editor"/>-->
         <reference name="content">
-            <block type="adminproductgrid/adminhtml_grid_edit" name="grid_edit"></block>
+            <block type="adminproductgrid/adminhtml_customgrid_edit" name="grid_edit"></block>
         </reference>
         <reference name="left">
-            <block type="adminproductgrid/adminhtml_grid_edit_tabs" name="grid_edit_tabs">
-                <block type="adminproductgrid/adminhtml_grid_edit_tab_main" name="grid_edit_tab_main" />
-                <action method="addTab"><name>main_section</name><block>grid_edit_tab_main</block></action>
+            <block type="adminproductgrid/adminhtml_customgrid_edit_tabs" name="customgrid_edit_tabs">
+                <block type="adminproductgrid/adminhtml_customgrid_edit_tab_main" name="customgrid_edit_tab_main" />
+                <action method="addTab"><name>main_section</name><block>customgrid_edit_tab_main</block></action>
             </block>
         </reference>
         <reference name="js">
             <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
         </reference>
-    </adminproductgrid_adminhtml_grid_edit>
+    </adminhtml_customgrid_edit>
 
-    <adminproductgrid_adminhtml_grid_fields>
+    <adminhtml_customgrid_fields>
         <block type="core/text_list" name="root" output="toHtml">
-            <block type="adminproductgrid/adminhtml_grid_edit_tab_fields" name="admin.grid.fields"/>
+            <block type="adminproductgrid/adminhtml_customgrid_edit_tab_fields" name="admin.grid.fields"/>
         </block>
-    </adminproductgrid_adminhtml_grid_fields>
+    </adminhtml_customgrid_fields>
 </layout>

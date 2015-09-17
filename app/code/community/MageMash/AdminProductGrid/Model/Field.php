@@ -1,10 +1,13 @@
 <?php
 
-class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
+class MageMash_Adminproductgrid_Model_Field extends Mage_Core_Model_Abstract
 {
+    protected $helper;
+
     protected function _construct()
     {
-       $this->_init('adminproductgrid/field');
+        $this->helper = Mage::helper('adminproductgrid');
+        $this->_init('adminproductgrid/field');
     }
 
     public function getAttributeSelect()
@@ -60,6 +63,27 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
                 'value' => 'total',
             ),
         );
+    }
+
+    public function getTypeSelects()
+    {
+        $selects = array();
+
+        $tables = $this->helper->getTables();
+
+        foreach ($tables as $table) {
+            foreach ($table->children() as $type) {
+                if ($type->hasChildren()) {
+                    $selects[$table->getName()][$type->getName()] = $this->createSelect($type->children());
+                } else {
+                    $class = $type->getAttribute('class');
+                    $class = new $class();
+                    $selects[$table->getName()][$type->getName()] = $class->getFields();
+                }
+            }
+        }
+
+        return $selects;
     }
 
     public function getFilterConditionSelect()
@@ -120,6 +144,10 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
 
     public function getTableSelect($type)
     {
+        $type = $this->helper->getTables()->$type;
+
+        return $this->createSelect($type->children());
+
         switch($type) {
             case 'product':
                 return array(
@@ -145,6 +173,20 @@ class MageMash_AdminProductGrid_Model_Field extends Mage_Core_Model_Abstract
             return null;
             break;
         }
+    }
+
+    protected function createSelect($items)
+    {
+        $array = array();
+
+        foreach ($items as $item) {
+            $array[$item->getName()] = array(
+                'label' => $item->getName(),
+                'value' => $item->getName(),
+            );
+        }
+
+        return $array;
     }
 
     public function getTypeOptions($key)

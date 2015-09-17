@@ -1,5 +1,5 @@
 <?php
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mage_Adminhtml_Block_Widget
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit_Tab_Fields extends Mage_Adminhtml_Block_Widget
 {
     protected $helper;
 
@@ -12,7 +12,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('magemash/adminproductgrid/grid/edit/fields.phtml');
+        $this->setTemplate('magemash/adminproductgrid/customgrid/edit/fields.phtml');
     }
 
     protected function _prepareLayout()
@@ -33,7 +33,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields extends Mag
             Mage::register("grid_id", $gridId);
 
             $this->setChild('options_box',
-                $this->getLayout()->createBlock('adminproductgrid/adminhtml_grid_edit_tab_fields_field')->setGrid($gridId)
+                $this->getLayout()->createBlock('adminproductgrid/adminhtml_customgrid_edit_tab_fields_field')->setGrid($gridId)
             );
         }
 

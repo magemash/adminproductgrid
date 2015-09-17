@@ -6,17 +6,17 @@
                 <magemash_adminproductgrid_index translate="title" module="adminproductgrid">
                     <title>All Products</title>
                     <sort_order>11</sort_order>
-                    <action>adminproductgrid/adminhtml_product/</action>
+                    <action>adminhtml/product/</action>
                 </magemash_adminproductgrid_index>
                 <magemash_adminproductgrid_setup translate="title" module="adminproductgrid">
                     <title>Product Grid Setup</title>
                     <sort_order>11</sort_order>
-                    <action>adminproductgrid/adminhtml_grid/</action>
+                    <action>adminhtml/customgrid</action>
                 </magemash_adminproductgrid_setup>
                 <magemash_adminproductgrid_setupedit translate="title" module="adminproductgrid">
                     <title>Product Grid Edit</title>
                     <sort_order>11</sort_order>
-                    <action>adminproductgrid/adminhtml_grid/edit/</action>
+                    <action>adminhtml/grid/edit/</action>
                 </magemash_adminproductgrid_setupedit>
             </children>
         </sales>
@@ -34,7 +34,7 @@
                             <config>
                                 <children>
                                     <magemash_adminproductgrid_settings translate="title" module="adminproductgrid">
-                                        <title>MageMash_AdminProductGrid</title>
+                                        <title>MageMash_Adminproductgrid</title>
                                         <sort_order>60</sort_order>
                                     </magemash_adminproductgrid_settings>
                                 </children>

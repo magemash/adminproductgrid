@@ -1,5 +1,5 @@
 <?php
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
 		protected function _prepareForm()
 		{

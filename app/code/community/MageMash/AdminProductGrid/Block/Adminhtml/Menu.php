@@ -1,5 +1,5 @@
 <?php
-class MageMash_AdminProductGrid_Block_Adminhtml_Menu extends Mage_Adminhtml_Block_Page_Menu
+class MageMash_Adminproductgrid_Block_Adminhtml_Menu extends Mage_Adminhtml_Block_Page_Menu
 {
     public function getMenuArray()
     {

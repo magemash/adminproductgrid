@@ -32,7 +32,7 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field extends Mage_Adminhtml_Block_Widget
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit_Tab_Fields_Field extends Mage_Adminhtml_Block_Widget
 {
     protected $_product;
 
@@ -48,7 +48,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('magemash/adminproductgrid/grid/edit/fields/field.phtml');
+        $this->setTemplate('magemash/adminproductgrid/customgrid/edit/fields/field.phtml');
         $this->setCanReadPrice(true);
         $this->setCanEditPrice(true);
     }
@@ -56,7 +56,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
     public function getGridObject()
     {
         $id = Mage::registry('grid_id');
-        return Mage::getModel('adminproductgrid/grid')->load($id);
+        return Mage::getModel('adminproductgrid/customgrid')->load($id);
     }
 
     public function getItemCount()
@@ -146,7 +146,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Field exten
         foreach ($types as $type) {
             $this->setChild($type . '_option_type',
                 $this->getLayout()->createBlock(
-                    'adminproductgrid/adminhtml_grid_edit_tab_fields_type_select')->setType($type)
+                    'adminproductgrid/adminhtml_customgrid_edit_tab_fields_type_select')->setType($type)
             );
         }
 

@@ -32,13 +32,13 @@
  * @author     Magento Core Team <core@magentocommerce.com>
  */
 
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Fields_Type_Select extends
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit_Tab_Fields_Type_Select extends
     Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Abstract
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('magemash/adminproductgrid/grid/edit/fields/type/select.phtml');
+        $this->setTemplate('magemash/adminproductgrid/customgrid/edit/fields/type/select.phtml');
     }
 
     public function getSelectOptions()

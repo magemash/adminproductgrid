@@ -1,6 +1,6 @@
 <?php
 
-class MageMash_AdminProductGrid_Block_Adminhtml_View extends Mage_Adminhtml_Block_Widget_Grid_Container
+class MageMash_Adminproductgrid_Block_Adminhtml_View extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
 	public function __construct()
 	{

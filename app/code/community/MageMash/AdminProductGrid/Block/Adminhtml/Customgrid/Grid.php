@@ -1,6 +1,6 @@
 <?php
 
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $helper;
 
@@ -16,7 +16,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('adminproductgrid/grid')->getCollection();
+        $collection = Mage::getModel('adminproductgrid/customgrid')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -44,7 +44,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
             'index'     => 'type',
         ));
 
-        $this->addColumn('grid_name', array(
+        $this->addColumn('name', array(
             'header'    => $helper->__('Grid Name'),
             'align'     =>'right',
             'index'     => 'grid_name',
@@ -86,14 +86,14 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Grid extends Mage_Adminhtml
     {
         $helper = $this->helper;
 
-        $this->setMassactionIdField('entity_id');
-        $this->getMassactionBlock()->setFormFieldName('entity_ids');
-        $this->getMassactionBlock()->setUseSelectAll(true);
-        $this->getMassactionBlock()->addItem('remove_item', array(
-            'label'=> $helper->__('Remove Item'),
-            'url'  => $this->getUrl('*/adminhtml_adminproductgrid/massRemove'),
-            'confirm' => $helper->__('Are you sure?')
-            ));
+//        $this->setMassactionIdField('entity_id');
+//        $this->getMassactionBlock()->setFormFieldName('entity_ids');
+//        $this->getMassactionBlock()->setUseSelectAll(true);
+//        $this->getMassactionBlock()->addItem('remove_item', array(
+//            'label'=> $helper->__('Remove Item'),
+//            'url'  => $this->getUrl('*/grid/massRemove'),
+//            'confirm' => $helper->__('Are you sure?')
+//            ));
         return $this;
     }
 

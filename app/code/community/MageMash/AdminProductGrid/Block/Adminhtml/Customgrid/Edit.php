@@ -1,6 +1,6 @@
 <?php
 
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     protected $helper;
 
@@ -10,7 +10,7 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit extends Mage_Adminhtml
 		parent::__construct();
 		$this->_objectId = "entity_id";
 		$this->_blockGroup = "adminproductgrid";
-		$this->_controller = "adminhtml_grid";
+		$this->_controller = "adminhtml_customgrid";
 		$this->_updateButton("save", "label", $this->helper->__("Save Item"));
 		$this->_updateButton("delete", "label", $this->helper->__("Delete Item"));
 

@@ -1,5 +1,5 @@
 <?php
-class MageMash_AdminProductGrid_Model_Resource_Field extends Mage_Core_Model_Resource_Db_Abstract
+class MageMash_Adminproductgrid_Model_Resource_Field extends Mage_Core_Model_Resource_Db_Abstract
 {
     protected function _construct()
     {
@@ -14,7 +14,7 @@ class MageMash_AdminProductGrid_Model_Resource_Field extends Mage_Core_Model_Res
     public function getFieldIfExists($field)
     {
         $collection = Mage::getResourceModel('adminproductgrid/field_collection')
-            ->addFilter('grid_id', (int)$field['grid_id'])
+            ->addFilter('customgrid_id', (int)$field['customgrid_id'])
             ->addFilter('field_id', (int)$field['field_id']);
 
         try {

@@ -4,7 +4,7 @@ $this->run("
 DROP TABLE IF EXISTS {$this->getTable('magemash_adminproductgrid_field')};
 CREATE TABLE {$this->getTable('magemash_adminproductgrid_field')} (
     `entity_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `grid_id` INT(11) NOT NULL,
+    `customgrid_id` INT(11) NOT NULL,
     `field_id` INT(11) NOT NULL,
     `field` VARCHAR(255) NULL DEFAULT NULL,
     `table_name` VARCHAR(255) NULL DEFAULT NULL,
@@ -26,10 +26,10 @@ ENGINE=InnoDB;
 ");
 
 $this->run("
-DROP TABLE IF EXISTS {$this->getTable('magemash_adminproductgrid_grid')};
-CREATE TABLE {$this->getTable('magemash_adminproductgrid_grid')} (
+DROP TABLE IF EXISTS {$this->getTable('magemash_adminproductgrid_customgrid')};
+CREATE TABLE {$this->getTable('magemash_adminproductgrid_customgrid')} (
     `entity_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `grid_name` VARCHAR(255) NULL DEFAULT NULL,
+    `name` VARCHAR(255) NULL DEFAULT NULL,
     `type` VARCHAR(255) NULL DEFAULT NULL,
     `title` VARCHAR(255) NULL DEFAULT NULL,
     `created_time` DATETIME NULL DEFAULT NULL,

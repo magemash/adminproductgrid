@@ -1,13 +1,13 @@
 <?php
 
-class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
+class MageMash_Adminproductgrid_Model_Customgrid extends Mage_Core_Model_Abstract
 {
     protected $attributes;
     protected $fieldModel;
 
     protected function _construct()
     {
-        $this->_init('adminproductgrid/grid');
+        $this->_init('adminproductgrid/customgrid');
         $this->fieldModel = Mage::getModel("adminproductgrid/field");
         $this->attributes = $this->fieldModel->getAttributeSelect();
     }
@@ -103,7 +103,7 @@ class MageMash_AdminProductGrid_Model_Grid extends Mage_Core_Model_Abstract
     public function getFields($id)
     {
         $collection = Mage::getResourceModel('adminproductgrid/field_collection')
-            ->addFilter('grid_id', $id);
+            ->addFilter('customgrid_id', $id);
 
         return $collection;
     }

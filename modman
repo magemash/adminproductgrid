@@ -1,5 +1,5 @@
-app/code/community/MageMash/AdminProductGrid                                app/code/community/MageMash/AdminProductGrid/
+app/code/community/MageMash/Adminproductgrid                                app/code/community/MageMash/Adminproductgrid/
 app/design/frontend/base/default/layout/magemash_adminproductgrid.xml       app/design/frontend/base/default/layout/magemash_adminproductgrid.xml
 app/design/adminhtml/default/default/layout/magemash_adminproductgrid.xml   app/design/adminhtml/default/default/layout/magemash_adminproductgrid.xml
 app/design/adminhtml/default/default/template/magemash/adminproductgrid     app/design/adminhtml/default/default/template/magemash/adminproductgrid
-app/etc/modules/MageMash_AdminProductGrid.xml                               app/etc/modules/MageMash_AdminProductGrid.xml
+app/etc/modules/MageMash_Adminproductgrid.xml                               app/etc/modules/MageMash_Adminproductgrid.xml

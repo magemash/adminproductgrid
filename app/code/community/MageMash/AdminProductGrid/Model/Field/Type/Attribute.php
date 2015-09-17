@@ -1,20 +1,17 @@
 <?php
 
-class MageMash_AdminProductGrid_Model_Field_Type_Attribute extends MageMash_AdminProductGrid_Model_Field_Type_Abstract
+class MageMash_Adminproductgrid_Model_Field_Type_Attribute extends MageMash_Adminproductgrid_Model_Field_Type_Abstract
 {
-    const BASE = "adminhtml/catalog_product";
-
-    protected static $fields = array(
-        'entity_id' => array(),
-        'name' => array(),
-        'qty' => array(),
-    );
-
     protected function _construct()
     {
     }
 
-    public function getSelect()
+    public function getFields()
+    {
+        return $this->getAttributeSelect();
+    }
+
+    public function getAttributeSelect()
     {
         $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
             ->getItems();
@@ -31,27 +28,6 @@ class MageMash_AdminProductGrid_Model_Field_Type_Attribute extends MageMash_Admi
         }
 
         return $rows;
-    }
-
-    public function getTypeOptions($key)
-    {
-        $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $key);
-
-        if ($attribute->usesSource()) {
-            $options = $attribute->getSource()->getAllOptions(false);
-        }
-
-        $optionKeys = array();
-
-        if (!empty($options)) {
-            foreach ($options as $option) {
-                if ($option['value'] != "") {
-                    $optionKeys[$option['value']] = $option['label'];
-                }
-            }
-        }
-
-        return $optionKeys;
     }
 }
 	 

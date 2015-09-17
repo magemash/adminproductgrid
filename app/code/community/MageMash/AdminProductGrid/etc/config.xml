@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <MageMash_AdminProductGrid>
+        <MageMash_Adminproductgrid>
             <version>0.1.0</version>
-        </MageMash_AdminProductGrid>
+        </MageMash_Adminproductgrid>
     </modules>
     <global>
         <resources>
             <magemash_adminproductgrid_setup>
                 <setup>
-                    <module>MageMash_AdminProductGrid</module>
+                    <module>MageMash_Adminproductgrid</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>
@@ -28,34 +28,34 @@
         </resources>
         <models>
             <adminproductgrid>
-                <class>MageMash_AdminProductGrid_Model</class>
+                <class>MageMash_Adminproductgrid_Model</class>
                 <resourceModel>adminproductgrid_resource</resourceModel>
             </adminproductgrid>
             <adminproductgrid_resource>
-                <class>MageMash_AdminProductGrid_Model_Resource</class>
+                <class>MageMash_Adminproductgrid_Model_Resource</class>
                 <entities>
                     <field>
                         <table>magemash_adminproductgrid_field</table>
                     </field>
-                    <grid>
-                        <table>magemash_adminproductgrid_grid</table>
-                    </grid>
+                    <customgrid>
+                        <table>magemash_adminproductgrid_customgrid</table>
+                    </customgrid>
                 </entities>
             </adminproductgrid_resource>
         </models>
         <blocks>
             <adminproductgrid>
-                <class>MageMash_AdminProductGrid_Block</class>
+                <class>MageMash_Adminproductgrid_Block</class>
             </adminproductgrid>
             <adminhtml>
                 <rewrite>
-                    <page_menu>MageMash_AdminProductGrid_Block_Adminhtml_Menu</page_menu>
+                    <page_menu>MageMash_Adminproductgrid_Block_Adminhtml_Menu</page_menu>
                 </rewrite>
             </adminhtml>
         </blocks>
         <helpers>
             <adminproductgrid>
-                <class>MageMash_AdminProductGrid_Helper</class>
+                <class>MageMash_Adminproductgrid_Helper</class>
             </adminproductgrid>
         </helpers>
     </global>
@@ -69,15 +69,26 @@
         </layout>
     </frontend>
 
+    <!--<admin>-->
+        <!--<routers>-->
+            <!--<adminproductgrid>-->
+                <!--<use>admin</use>-->
+                <!--<args>-->
+                    <!--<module>MageMash_Adminproductgrid</module>-->
+                    <!--<frontName>adminproductgrid</frontName>-->
+                <!--</args>-->
+            <!--</adminproductgrid>-->
+        <!--</routers>-->
+    <!--</admin>-->
     <admin>
         <routers>
-            <adminproductgrid>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>MageMash_AdminProductGrid</module>
-                    <frontName>adminproductgrid</frontName>
+                    <modules>
+                        <adminproductgrid before="Mage_Adminhtml">MageMash_Adminproductgrid_Adminhtml</adminproductgrid>
+                    </modules>
                 </args>
-            </adminproductgrid>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>
@@ -90,4 +101,23 @@
             </updates>
         </layout>
     </adminhtml>
+    <customadmingrid>
+        <table>
+            <product>
+                <product>
+                    <entity_id></entity_id>
+                    <qty></qty>
+                    <name></name>
+                </product>
+                <attribute class="MageMash_Adminproductgrid_Model_Field_Type_Attribute"/>
+            </product>
+            <order>
+                <order>
+                    <entity_id></entity_id>
+                    <total></total>
+                    <increment_id></increment_id>
+                </order>
+            </order>
+        </table>
+    </customadmingrid>
 </config>

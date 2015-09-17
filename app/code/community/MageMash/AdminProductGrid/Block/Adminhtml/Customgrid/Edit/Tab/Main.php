@@ -1,5 +1,5 @@
 <?php
-class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
+class MageMash_Adminproductgrid_Block_Adminhtml_Customgrid_Edit_Tab_Main
     extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -28,11 +28,11 @@ class MageMash_AdminProductGrid_Block_Adminhtml_Grid_Edit_Tab_Main
 			'name'      => 'title',
         ));
 
-        $fieldset->addField('grid_name', 'text', array(
+        $fieldset->addField('name', 'text', array(
             'label'     => $this->helper->__('Grid Name'),
             'class'     => 'required-entry',
             'required'  => true,
-            'name'      => 'grid_name',
+            'name'      => 'name',
         ));
 
         $fieldset->addField('type', 'select', array(

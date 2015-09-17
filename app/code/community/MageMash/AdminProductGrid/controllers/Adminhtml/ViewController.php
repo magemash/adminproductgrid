@@ -1,6 +1,6 @@
 <?php
 
-class MageMash_AdminProductGrid_Adminhtml_ViewController extends Mage_Adminhtml_Controller_Action
+class MageMash_Adminproductgrid_Adminhtml_ViewController extends Mage_Adminhtml_Controller_Action
 {
     protected $_helper;
 
