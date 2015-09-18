@@ -1,0 +1,18 @@
+{
+  "name": "magemash/adminproductgrid",
+  "license": "GPL-3.0",
+  "type": "magento-module",
+  "description": "Validate billing and shipping addresses in the One Page Checkout.",
+  "homepage": "https://github.com/magemash/adminproductgrid",
+  "require": {
+    "php": ">=5.3",
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "authors": [
+    {
+      "name": "Scott Pringle",
+      "email": "scott@getcommerce.com",
+      "role": "Author/Maintainer"
+    }
+  ]
+}
